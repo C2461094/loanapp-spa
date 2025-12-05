@@ -24,7 +24,9 @@ const { devices, isLoading, error, reload } = useDevices();
     <div v-else>
       <ul v-if="devices.length" class="grid" role="list">
         <li v-for="device in devices" :key="device.id" role="listitem">
-          <DeviceCard :device="device" />
+          <RouterLink :to="{ name: 'DeviceDetail', params: { id: device.id } }">
+            <DeviceCard :device="device" />
+          </RouterLink>
         </li>
       </ul>
       <p v-else class="state">No devices yet.</p>

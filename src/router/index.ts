@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ListDevices from '@/views/devices/ListDevices.vue';
+import DeviceDetail from '@/views/devices/DeviceDetail.vue';
 
 const routes = [
   {
@@ -10,6 +11,12 @@ const routes = [
     path: '/devices',
     name: 'Devices',
     component: ListDevices,
+  },
+  {
+    path: '/devices/:id',
+    name: 'DeviceDetail',
+    component: DeviceDetail,
+    props: true,
   },
 ];
 

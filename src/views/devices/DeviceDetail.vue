@@ -12,9 +12,21 @@ onMounted(() => {
   const deviceId = route.params.id as string;
   device.value = devices.value.find((d) => d.id === deviceId);
 });
+
+function reserveDevice() {
+  alert(`You reserved ${device.value?.brand} ${device.value?.modelName}`);
+  // TODO: POST to /reservations
+}
+
+function subscribeToNotifications() {
+  alert(
+    `Subscribed to updates for ${device.value?.brand} ${device.value?.modelName}`,
+  );
+  // TODO: POST to /subscriptions or call NotificationService
+}
 </script>
 
-<template>
+//<template>
   <div class="page">
     <h1>Device Details</h1>
     <div v-if="isLoading">Loading...</div>
@@ -28,5 +40,44 @@ onMounted(() => {
     <div v-else>
       <p>Device not found.</p>
     </div>
+    <div class="actions">
+      <button @click="$router.back()" class="btn btn--back">
+        Back to Devices
+      </button>
+      <button @click="reserveDevice" class="btn btn--primary">
+        Reserve Device
+      </button>
+      <button @click="subscribeToNotifications" class="btn btn--secondary">
+        Subscribe for Notifications
+      </button>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+
+.btn {
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn--primary {
+  background-color: #3b82f6;
+  color: white;
+}
+.btn--secondary {
+  background-color: #5ca0ec;
+  color: white;
+}
+</style>
