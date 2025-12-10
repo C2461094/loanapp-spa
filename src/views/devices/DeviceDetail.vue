@@ -54,30 +54,4 @@ function subscribeToNotifications() {
   </div>
 </template>
 
-<style scoped>
-.actions {
-  margin-top: 2rem;
-  display: flex;
-  gap: 1rem;
-}
 
-
-.btn {
-  padding: 0.625rem 1.25rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn--primary {
-  background-color: #3b82f6;
-  color: white;
-}
-.btn--secondary {
-  background-color: #5ca0ec;
-  color: white;
-}
-</style>

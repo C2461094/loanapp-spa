@@ -1,8 +1,13 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import { buildDeviceUses, DEVICE_KEY, buildLoanRecordUses, LOAN_RECORD_KEY } from './config/appServices';
-
+import {
+  buildDeviceUses,
+  DEVICE_KEY,
+  buildLoanRecordUses,
+  LOAN_RECORD_KEY,
+} from './config/appServices';
+import './styles/global.css';
 
 const app = createApp(App);
 

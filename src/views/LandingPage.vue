@@ -20,42 +20,4 @@ function goTo(path: string) {
   </section>
 </template>
 
-<style scoped>
-.landing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: #f3f4f6;
-  padding: 2rem;
-  text-align: center;
-}
 
-.title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-button {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-button:hover {
-  background-color: #2563eb;
-}
-</style>
