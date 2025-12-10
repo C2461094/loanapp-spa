@@ -5,7 +5,8 @@ import DeviceDetail from '@/views/devices/DeviceDetail.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/devices',
+    name: 'Home',
+    component: () => import('@/views/LandingPage.vue'),
   },
   {
     path: '/devices',
@@ -22,6 +23,11 @@ const routes = [
     path: '/loan-records',
     name: 'LoanRecords',
     component: () => import('@/views/loanRecords/ListLoanRecords.vue'),
+  },
+  {
+    path: '/loan-records/:id',
+    name: 'LoanRecordDetail',
+    component: () => import('@/views/loanRecords/LoanRecordDetail.vue'),
   },
 ];
 

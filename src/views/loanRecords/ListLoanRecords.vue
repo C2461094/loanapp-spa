@@ -8,6 +8,7 @@ const { records, isLoading, error, reload } = useLoanRecords();
   <section class="page">
     <header class="page__header">
       <h1>Loan Records</h1>
+      <RouterLink to="/" class="btn btn--reload">Back to Home</RouterLink>
       <button @click="reload" class="btn btn--reload" :disabled="isLoading">
         Reload
       </button>
@@ -23,6 +24,11 @@ const { records, isLoading, error, reload } = useLoanRecords();
         <strong>Status:</strong> {{ record.status }}<br />
         <strong>Due:</strong>
         {{ new Date(record.dueDate).toLocaleDateString() }}
+        <RouterLink
+          :to="{ name: 'LoanRecordDetail', params: { id: record.id } }"
+        >
+          View Details
+        </RouterLink>
       </li>
     </ul>
 

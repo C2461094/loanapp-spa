@@ -9,6 +9,8 @@ const { devices, isLoading, error, reload } = useDevices();
   <section class="page">
     <header class="page__header">
       <h1>Devices</h1>
+      
+      <RouterLink to="/" class="btn btn--reload">Back to Home</RouterLink>
       <button @click="reload" class="btn btn--reload" :disabled="isLoading">
         Reload
       </button>

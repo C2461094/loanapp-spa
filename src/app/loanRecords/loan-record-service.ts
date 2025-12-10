@@ -1,4 +1,4 @@
-export type LoanRecord = {
+export type LoanRecordDTO = {
   id: string;
   userId: string;
   deviceId: string;
@@ -9,3 +9,6 @@ export type LoanRecord = {
   dueDate: string;
 };
 
+export interface LoanRecordServiceService {
+  list(): Promise<LoanRecordDTO[]>;
+}

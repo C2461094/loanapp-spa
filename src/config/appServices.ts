@@ -5,9 +5,11 @@ import { FakeDeviceService } from '@/infra/devices/fake-device-service';
 import { seedDevices } from '@/seed/devices';
 import type { DeviceService } from '@/app/devices/device-service';
 import type { ListDevicesResult } from '@/app/devices/list-devices';
-import type { LoanRecord} from '@/app/loanRecords/loan-record';
+import type { LoanRecord } from '@/app/loanRecords/loan-record';
+import { HttpLoanRecordService } from '@/infra/loanRecords/http-loan-record-service';
 
 let _deviceService: DeviceService | undefined;
+let _loanRecordService: LoanRecordService | undefined;
 
 function createDeviceServiceFromEnv(): DeviceService {
   const env = import.meta.env as Record<string, string | undefined>;
@@ -49,8 +51,25 @@ export type Devices = ReturnType<typeof buildDeviceUses>;
 
 export const DEVICE_KEY = 'Devices' as const;
 
-export type LoanRecordService = {
-  listLoanRecords: () => Promise<{ records: LoanRecord[] }>;
-};
-
 export const LOAN_RECORD_KEY = Symbol('LoanRecordService');
+
+export interface LoanRecordService {
+  listLoanRecords(): Promise<{ records: LoanRecord[] }>;
+}
+
+function getLoanRecordService(): LoanRecordService {
+  if (!_loanRecordService) {
+    const env = import.meta.env as Record<string, string | undefined>;
+    const baseUrl = env.VITE_API_BASE_URL!;
+    _loanRecordService = new HttpLoanRecordService({ baseUrl });
+  }
+  return _loanRecordService;
+}
+export function buildLoanRecordUses() {
+  const service = getLoanRecordService();
+  return {
+    listLoanRecords: service.listLoanRecords,
+  };
+}
+
+export type LoanRecords = ReturnType<typeof buildLoanRecordUses>;
