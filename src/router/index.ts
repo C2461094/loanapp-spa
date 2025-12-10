@@ -18,6 +18,11 @@ const routes = [
     component: DeviceDetail,
     props: true,
   },
+  {
+    path: '/loan-records',
+    name: 'LoanRecords',
+    component: () => import('@/views/loanRecords/ListLoanRecords.vue'),
+  },
 ];
 
 const router = createRouter({

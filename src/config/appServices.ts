@@ -5,6 +5,7 @@ import { FakeDeviceService } from '@/infra/devices/fake-device-service';
 import { seedDevices } from '@/seed/devices';
 import type { DeviceService } from '@/app/devices/device-service';
 import type { ListDevicesResult } from '@/app/devices/list-devices';
+import type { LoanRecord} from '@/app/loanRecords/loan-record';
 
 let _deviceService: DeviceService | undefined;
 
@@ -47,3 +48,9 @@ export function buildDeviceUses() {
 export type Devices = ReturnType<typeof buildDeviceUses>;
 
 export const DEVICE_KEY = 'Devices' as const;
+
+export type LoanRecordService = {
+  listLoanRecords: () => Promise<{ records: LoanRecord[] }>;
+};
+
+export const LOAN_RECORD_KEY = Symbol('LoanRecordService');
