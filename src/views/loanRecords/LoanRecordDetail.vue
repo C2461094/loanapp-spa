@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useLoanRecords } from '@/composables/use-loan-records';
-import type { LoanRecord } from '@/app/loanRecords//loan-record';
+import type { LoanRecord } from '@/app/loanRecords/loan-record';
 
 const route = useRoute();
+const router = useRouter();
 const { records, isLoading } = useLoanRecords();
 const record = ref<LoanRecord | undefined>();
 
@@ -13,14 +14,12 @@ onMounted(() => {
   record.value = records.value.find((r) => r.id === recordId);
 });
 
-function markAsReturned() {
-  alert(`Marking loan record ${record.value?.id} as returned`);
-  // TODO: POST /returns or PATCH loan record status
+function markAsCollected() {
+  alert(`Marking loan record ${record.value?.id} as collected`);
 }
 
-function extendLoan() {
-  alert(`Extending loan for record ${record.value?.id}`);
-  // TODO: POST to /extensions or similar
+function markAsReturned() {
+  alert(`Marking loan record ${record.value?.id} as returned`);
 }
 </script>
 
@@ -45,15 +44,9 @@ function extendLoan() {
     </div>
 
     <div class="actions">
-      <button @click="$router.back()" class="btn btn--back">
-        Back to Loan Records
-      </button>
-      <button @click="extendLoan" class="btn btn--primary">
-        Extend Loan
-      </button>
-      <button @click="markAsReturned" class="btn btn--secondary">
-        Mark as Returned
-      </button>
+      <button @click="router.back()" class="btn btn--back">Back</button>
+      <button @click="markAsCollected" class="btn btn--primary">Mark as Collected</button>
+      <button @click="markAsReturned" class="btn btn--secondary">Mark as Returned</button>
     </div>
   </div>
 </template>
@@ -63,7 +56,7 @@ function extendLoan() {
   max-width: 800px;
   margin: 2rem auto;
   padding: 1rem;
-  background-color: #fff;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
@@ -84,10 +77,16 @@ function extendLoan() {
   transition: all 0.2s;
 }
 
+.btn--back {
+  background-color: #6b7280;
+  color: white;
+}
+
 .btn--primary {
   background-color: #3b82f6;
   color: white;
 }
+
 .btn--secondary {
   background-color: #5ca0ec;
   color: white;

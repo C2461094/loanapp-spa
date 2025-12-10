@@ -1,39 +1,45 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useLoanRecords } from '@/composables/use-loan-records';
+import { useRouter } from 'vue-router';
 
-const { records, isLoading, error, reload } = useLoanRecords();
+const { records, isLoading, reload } = useLoanRecords();
+const router = useRouter();
+
+onMounted(() => {
+  reload();
+});
+
+function goToDetail(id: string) {
+  router.push(`/loan-records/${id}`);
+}
 </script>
 
 <template>
-  <section class="page">
-    <header class="page__header">
-      <h1>Loan Records</h1>
-      <RouterLink to="/" class="btn btn--reload">Back to Home</RouterLink>
-      <button @click="reload" class="btn btn--reload" :disabled="isLoading">
-        Reload
-      </button>
-    </header>
+  <div class="page">
+    <h1>Loan Records</h1>
 
-    <div v-if="isLoading" class="state">Loading...</div>
-    <div v-else-if="error" class="state state--error">{{ error }}</div>
+    <div v-if="isLoading">Loading...</div>
 
-    <ul v-else-if="records.length" class="grid">
-      <li v-for="record in records" :key="record.id" class="card">
-        <strong>User:</strong> {{ record.userId }}<br />
-        <strong>Device:</strong> {{ record.deviceId }}<br />
-        <strong>Status:</strong> {{ record.status }}<br />
-        <strong>Due:</strong>
-        {{ new Date(record.dueDate).toLocaleDateString() }}
-        <RouterLink
-          :to="{ name: 'LoanRecordDetail', params: { id: record.id } }"
-        >
-          View Details
-        </RouterLink>
+    <ul v-else class="record-list">
+      <li
+        v-for="record in records"
+        :key="record.id"
+        class="record-item"
+        @click="goToDetail(record.id)"
+      >
+        <p><strong>{{ record.deviceId }}</strong> → {{ record.status }}</p>
+        <small>User: {{ record.userId }} | Due: {{ record.dueDate }}</small>
       </li>
     </ul>
 
-    <p v-else class="state">No loan records found.</p>
-  </section>
+    <div class="actions">
+      <button @click="$router.push('/')" class="btn btn--back">⬅ Back to Home</button>
+      <button @click="reload" class="btn btn--reload" :disabled="isLoading">
+        Reload
+      </button>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -42,35 +48,49 @@ const { records, isLoading, error, reload } = useLoanRecords();
   margin: 2rem auto;
   padding: 1rem;
 }
-.page__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+.record-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
 }
+
+.record-item {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.record-item:hover {
+  background: #f3f4f6;
+}
+
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn--back {
+  background-color: #6b7280;
+  color: white;
+}
+
 .btn--reload {
   background-color: #3b82f6;
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-}
-.grid {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-.card {
-  padding: 1rem;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-}
-.state {
-  margin-top: 2rem;
-  color: #6b7280;
-}
-.state--error {
-  color: #b91c1c;
 }
 </style>
