@@ -11,11 +11,11 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     env:
-      VITE_API_BASE_URL: https://loanapp-dev-iv3-func.azurewebsites.net/api/ # Change to your deployed test backend
+      VITE_API_BASE_URL: https://loanapp-dev-iv3-func.azurewebsites.net/api/
 
     steps:
       - name: Checkout code
@@ -33,5 +33,16 @@ jobs:
       - name: Run type check
         run: npm run type-check
 
-      - name: Build
+      - name: Build SPA
         run: npm run build
+
+      - name: Upload to Azure Blob Storage
+        uses: azure/cli@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob upload-batch \
+              --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \
+              --source ./dist \
+              --destination '$web' \
+              --overwrite
