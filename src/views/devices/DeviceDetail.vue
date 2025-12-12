@@ -22,11 +22,15 @@ async function reserveDevice() {
   error.value = null;
 
   try {
-    const response = await fetch('/api/records', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ deviceId: device.value.id }),
-    });
+const response = await fetch(
+  `${import.meta.env.VITE_API_BASE_URL}records`,
+  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ deviceId: device.value.id }),
+  }
+);
+
 
     if (!response.ok) {
       const message = await response.text();
