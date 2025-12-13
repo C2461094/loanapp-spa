@@ -10,9 +10,14 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background-color: #f9fafb; /* light gray */
-  color: #111827; /* gray-900 */
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    sans-serif;
+  background-color: #f9fafb;
+  color: #111827;
   line-height: 1.6;
   min-height: 100vh;
   padding: 1rem;
@@ -30,7 +35,7 @@ body {
 }
 
 .btn--primary {
-  background-color: #3b82f6; /* blue-500 */
+  background-color: #3b82f6;
   color: white;
 }
 
@@ -40,8 +45,8 @@ body {
 }
 
 .btn--back {
-  background-color: #d1d5db; /* gray-300 */
-  color: #1f2937; /* gray-800 */
+  background-color: #d1d5db;
+  color: #1f2937;
 }
 
 /* Page container */

@@ -28,7 +28,7 @@ function goToDetail(id: string) {
         class="record-item"
         @click="goToDetail(record.id)"
       >
-        <p><strong>{{ record.deviceId }}</strong> → {{ record.status }}</p>
+       <p><strong>{{ record.deviceModelName ?? record.deviceId }}</strong> → {{ record.status }}</p>
         <small>User: {{ record.userId }} | Due: {{ record.dueDate }}</small>
       </li>
     </ul>

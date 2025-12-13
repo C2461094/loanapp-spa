@@ -21,8 +21,8 @@ main {
     Arial,
     'Apple Color Emoji',
     'Segoe UI Emoji';
-  color: #111827; /* gray-900 */
-  background: #f9fafb; /* gray-50 */
+  color: #111827; 
+  background: #f9fafb; 
   min-height: 100vh;
 }
 </style>
