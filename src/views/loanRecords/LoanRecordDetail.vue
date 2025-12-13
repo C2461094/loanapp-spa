@@ -74,17 +74,29 @@ async function markAsReturned() {
 
     <div v-else-if="record">
       <p><strong>User ID:</strong> {{ record.userId }}</p>
+
       <p>
-        <strong>Device:</strong> {{ record.deviceModelName ?? record.deviceId }}
+        <strong>Device:</strong>
+        <span v-if="record.deviceModelName">
+          {{ record.deviceModelName }}
+          <span class="muted">({{ record.deviceId }})</span>
+        </span>
+        <span v-else>
+          {{ record.deviceId }}
+        </span>
       </p>
+
       <p><strong>Status:</strong> {{ record.status }}</p>
       <p><strong>Reserved At:</strong> {{ record.reservedAt }}</p>
+
       <p v-if="record.collectedAt">
         <strong>Collected At:</strong> {{ record.collectedAt }}
       </p>
+
       <p v-if="record.returnedAt">
         <strong>Returned At:</strong> {{ record.returnedAt }}
       </p>
+
       <p><strong>Due Date:</strong> {{ record.dueDate }}</p>
     </div>
 
