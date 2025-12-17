@@ -53,12 +53,40 @@ const response = await fetch(
   }
 }
 
-function subscribeToNotifications() {
-  alert(
-    `Subscribed to updates for ${device.value?.brand} ${device.value?.modelName}`,
-  );
-  // TODO: POST to /subscriptions or call NotificationService
+async function subscribeToNotifications() {
+  if (!device.value || !device.value.id || !user.value?.id) {
+    alert("Device or user info is missing.");
+    return;
+  }
+
+  const payload = {
+    deviceId: device.value.id,
+    userId: user.value.id,
+  };
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText || 'Subscription failed');
+    }
+
+    alert(
+      `Subscribed to updates for ${device.value.brand} ${device.value.modelName}`,
+    );
+  } catch (error) {
+    console.error('Failed to subscribe:', error);
+    alert('Failed to subscribe to notifications. Try again later.');
+  }
 }
+
 </script>
 
 
@@ -90,7 +118,9 @@ function subscribeToNotifications() {
         Reserve Device
       </button>
 
-      <button @click="subscribeToNotifications" class="btn btn--secondary">
+      <button @click="subscribeToNotifications" class="btn btn--secondary"
+      :disabled="device.stock > 0"
+      :title="device.stock > 0 ? 'You can only subscribe when the device is out of stock' : 'Get email notification when device becomes available'">
         Subscribe for Notifications
       </button>
     </div>
