@@ -54,14 +54,14 @@ const response = await fetch(
 }
 
 async function subscribeToNotifications() {
-  if (!device.value || !device.value.id || !user.value?.id) {
+  if (!device.value || !device.value.id /*|| !user.value?.id*/) {
     alert("Device or user info is missing.");
     return;
   }
 
   const payload = {
     deviceId: device.value.id,
-    userId: user.value.id,
+    /*userId: user.value.id,*/
   };
 
   try {
@@ -119,8 +119,8 @@ async function subscribeToNotifications() {
       </button>
 
       <button @click="subscribeToNotifications" class="btn btn--secondary"
-      :disabled="device.stock > 0"
-      :title="device.stock > 0 ? 'You can only subscribe when the device is out of stock' : 'Get email notification when device becomes available'">
+      :disabled="!device ||device.stock > 0"
+      :title="!device || device.stock > 0 ? 'You can only subscribe when the device is out of stock' : 'Get email notification when device becomes available'">
         Subscribe for Notifications
       </button>
     </div>

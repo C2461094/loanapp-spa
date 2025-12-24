@@ -7,6 +7,7 @@ import {
   buildLoanRecordUses,
   LOAN_RECORD_KEY,
 } from './config/appServices';
+import { initAuth0 } from './composables/use-auth';
 import './styles/global.css';
 
 const app = createApp(App);
@@ -17,4 +18,7 @@ app.use(router);
 app.provide(DEVICE_KEY, buildDeviceUses());
 app.provide(LOAN_RECORD_KEY, buildLoanRecordUses());
 
-app.mount('#app');
+initAuth0().then(() => {
+  createApp(App).use(router).mount('#app');
+});
+

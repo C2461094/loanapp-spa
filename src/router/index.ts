@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ListDevices from '@/views/devices/ListDevices.vue';
 import DeviceDetail from '@/views/devices/DeviceDetail.vue';
+import LandingPage from '@/views/LandingPage.vue';
+import Login from '@/views/Login.vue';
+import Callback from '@/views/Callback.vue';
 
 const routes = [
   {
