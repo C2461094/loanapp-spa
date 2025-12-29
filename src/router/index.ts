@@ -14,25 +14,28 @@ const routes = [
   {
     path: '/devices',
     name: 'Devices',
-    component: ListDevices,
+    component: () => import('@/views/devices/ListDevices.vue'),
   },
   {
     path: '/devices/:id',
     name: 'DeviceDetail',
-    component: DeviceDetail,
-    props: true,
+    component: () => import('@/views/devices/DeviceDetail.vue'),
+    meta: { requiresAuth: true }, // Only logged-in users can view device details
   },
   {
     path: '/loan-records',
     name: 'LoanRecords',
     component: () => import('@/views/loanRecords/ListLoanRecords.vue'),
+    meta: { requiresAuth: true, requiredRole: 'staff' },
   },
   {
     path: '/loan-records/:id',
     name: 'LoanRecordDetail',
     component: () => import('@/views/loanRecords/LoanRecordDetail.vue'),
+    meta: { requiresAuth: true, requiredRole: 'staff' },
   },
 ];
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

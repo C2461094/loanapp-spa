@@ -1,0 +1,620 @@
+/* * Importing the Font Face for the Custom Font Families */
+
+@import url("./font-face.css");
+
+/* * end of Importing the Font Face for the Custom Font Families */
+
+/* * CSS Variable */
+
+:root {
+  /* theme colors */
+  --text-gray: #3f4954;
+  --text-light: #686666da;
+  --text-color: #161925;
+  --white: #fbfbff;
+  --midnight: #104f55;
+
+  /* gradient color */
+  --sky: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+
+  /* theme font-families */
+  --Abel: "Abel", cursive;
+  --Anton: "Anton", cursive;
+  --Josefin: "Josefin", cursive;
+  --Lexend: "Lexend", cursive;
+  --Livvic: "Livvic", cursive;
+  --Livvic_Bold: "Livvic_Bold", cursive;
+  --Poppins_ExtraBold: "Poppins_ExtraBold", cursive;
+}
+
+/* * end of CSS Variable */
+
+/* * Global Styling  */
+
+/* * Setting the Box Model CSS Properties */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0%;
+  margin: 0%;
+}
+
+/* * end of Setting the Box Model CSS Properties */
+
+/* * Using the 62.5% Font Sizing Trick */
+
+html {
+  /* 62.5% out of the base root font size is equivalent to 1rem=10px */
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  /* we change the all of the fonts size from our body to the value 1.6rem, because after reducing the root font size in the "html" element we are left with the size of the root font equal to 1rem=10px, which is really small */
+  font-size: 1.6rem;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* * end of Using the 62.5% Font Sizing Trick */
+
+/* * Main Headings */
+
+h1 {
+  background: var(--white);
+  color: var(--text-color);
+  font-family: var(--Poppins_ExtraBold);
+  font-size: 3.6rem;
+  text-align: center;
+  padding: 1rem 0rem;
+  border-bottom: 0.2rem solid #9349bb;
+}
+
+h2 {
+  font-family: var(--Lexend);
+  font-size: 2.6rem;
+}
+
+h3 {
+  font-family: var(--Abel);
+  font-size: 2.2rem;
+}
+
+/* * end of Main Headings */
+
+/* * Unordered Lists */
+
+ul {
+  list-style-type: none;
+  padding: 1.6rem;
+}
+
+li {
+  padding: 1.2rem;
+}
+
+/* * end of Unordered Lists */
+
+/* * Span Element */
+
+/* * end of Span Element */
+
+/* * Hyperlink Styling  */
+
+a {
+  font-family: var(--Josefin);
+  text-decoration: none;
+  font-size: 1.8rem;
+  text-decoration: none;
+  /* cursor: alias; */
+}
+
+/* * ":link" pseudo-class  */
+
+/* 
+    the "link" pseudo-class represents a hyperlink that has not been visited
+*/
+
+a:link {
+  color: var(--text-color);
+}
+
+/* * end of ":link" pseudo-class  */
+
+/* * ":visited" pseudo-class */
+
+a:visited {
+  color: var(--text-color);
+}
+
+/* * end of ":visited" pseudo-class */
+
+/* * ":hover" pseudo-class */
+
+a:hover {
+  color: #0e1c36;
+}
+
+/* * end of ":hover" pseudo-class */
+
+/* * "active" pseudo-class */
+
+/* the "active" pseudo-class will style the moment is activated by the user, this refers to the action of clicking the lik itself */
+
+a:active {
+  color: #7d7c84;
+}
+
+/* * end of "active" pseudo-class */
+
+/* * styling the "::selection" pseudo-element */
+
+::selection {
+  background: #add9f4;
+  color: var(--text-color);
+}
+
+/* * end of styling the "::selection" pseudo-element */
+
+/* * end of Hyperlink Styling  */
+
+/* * Aside Element */
+aside {
+  grid-area: aside;
+  /* width: max-content; */
+}
+/* * end of Aside Element */
+
+/* * end of Global Styling  */
+
+/* * Page Header Styling */
+
+.page__header {
+  background: var(--white);
+  /*  position: sticky; */
+  /*   top: 2.4rem;
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: center;
+  align-items: center; */
+  margin: 0.8rem 2.4rem;
+  border-bottom: 0.2rem solid #9349bb;
+  grid-area: header;
+}
+
+/* * end of Page Header Styling */
+
+/* * Cards Styling */
+
+.device-card {
+  background: #f9fbf2;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  margin: 1.2rem;
+  padding: 1.2rem;
+  border: 0.2rem solid #bcf4f5;
+  border-radius: 1.6rem;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2);
+  transition: transform 0.2s ease-out;
+}
+
+.device-card:hover {
+  background: #d9f2b4;
+  transform: scale(1.05);
+}
+
+.card-item {
+  margin: 0.8rem;
+}
+
+/* .device-card .context {
+  font-size: 1.8rem;
+  font-weight: 400;
+} */
+
+.device-card :nth-child(1) {
+  font-family: var(--Anton);
+  padding: 0.4rem;
+  margin: 0.6rem;
+  font-size: 2.2rem;
+  font-weight: 900;
+}
+
+.device-card .card-title {
+  background: #f8e1e5;
+  padding: 0.4rem 0.6rem;
+  margin: 0.4rem 0rem;
+  font-family: var(--Poppins_ExtraBold);
+  font-size: 2.4rem;
+  font-weight: 900;
+  text-align: center;
+  color: #2d286e;
+  border-bottom: 0.2rem solid #474973;
+  border-radius: 0.6rem;
+}
+
+.device-card p {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 2.4rem;
+}
+
+/* * Grid Module for Cards */
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  border-left: 0.2rem solid #9349bb;
+  grid-area: list_cards;
+}
+.grid-app {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "header header "
+    "aside list_cards";
+}
+
+/* * end of Grid Module for Cards */
+
+/* * end of Cards Styling */
+
+/* * Buttons Styling  */
+
+.btn {
+  background-color: #b7c8e9;
+  padding: 0.8rem 1.8rem;
+  margin: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn--primary {
+  background-color: #3b82f6;
+  color: white;
+  transition: 0.4s ease-in;
+}
+
+.btn--primary:hover {
+  background-color: #c8d9f5;
+  color: #524e4e;
+  transform: scale(1.15);
+}
+
+.btn--secondary {
+  background-color: #5ca0ec;
+  color: white;
+  transition: 0.4s ease-in;
+}
+
+.btn--secondary:hover {
+  background-color: #386292;
+  color: #c7c0c0;
+  transform: scale(1.15);
+}
+
+.btn--back {
+  background-color: #d1d5db;
+  color: #1f2937;
+  transition: 0.4s ease-in;
+}
+
+.btn--back:hover {
+  background-color: #6a6c6e;
+  color: #a6cbff;
+  transform: scale(1.15);
+}
+
+.btn--reload {
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem 3rem;
+  margin: 1.2rem;
+  font-size: 2.4rem;
+  font-family: var(--Livvic);
+  cursor: pointer;
+  background: #c9c3f7;
+  color: var(--text-color);
+  transform: scale(1.2);
+  transition: transform 0.2s ease-out;
+}
+
+.btn--reload:hover {
+  background: #9386fa;
+  transform: scale(1.05);
+}
+
+.actions {
+  display: flex;
+  flex-basis: wrap row;
+  justify-content: center;
+  align-content: center;
+}
+
+/* * Button Flex */
+
+.btn-container {
+  position: sticky;
+  top: 3.6rem;
+  width: max-content;
+  padding: 1.2rem;
+  margin: 1.2rem;
+  overflow: auto;
+}
+
+.btn-flex {
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: safe flex-start;
+  align-content: center;
+  height: 100vh;
+}
+/* * end of Button Flex */
+
+/* * end of Buttons Styling  */
+
+/* * Page Styling  */
+
+.page {
+  /* max-width: 800px; */
+  /*   margin: 2rem auto; */
+  padding: 1rem;
+  background-color: #fcfffc;
+  /*   border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); */
+}
+
+/* * end of Page Styling  */
+
+/* * Device Details Styling  */
+
+.device-details {
+  width: 60vw;
+  margin: 2.4rem auto;
+  transform: none;
+  transition: none;
+}
+
+.device-details:hover {
+  transform: none;
+}
+
+.device-details :nth-child(1) {
+  padding: 0.4rem;
+  margin: 0.6rem;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.device-details .card-title {
+  font-size: 2.4rem;
+}
+
+/* * end of Device Details Styling  */
+
+/* * Loan List Records Styling */
+
+/* * Record List Elements Styling */
+
+.record-list {
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8rem;
+}
+
+.record-list li {
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: #dbd4d3;
+  width: 54vw;
+  padding: 0.8rem;
+  margin: 1.2rem;
+  border-left: 0.4rem solid #00a6a6;
+  border-top-right-radius: 1.8rem;
+}
+
+.record-list li :nth-child(n) {
+  padding: 0.8rem;
+}
+
+.record-list p {
+  font-family: var(--Lexend);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #484349;
+  text-transform: capitalize;
+}
+
+.record-list strong {
+  text-transform: uppercase;
+  font-family: var(--Poppins_ExtraBold);
+  font-size: 1.6rem;
+  text-align: center;
+  color: #212922;
+}
+
+.record-list p ::after {
+  position: relative;
+  content: " =>";
+  left: 0.8rem;
+  color: #093613;
+}
+
+.record-list :nth-child(2n) {
+  background: #e6e8e6;
+}
+
+.record-list li :nth-child(2n) {
+  background: #f7c59f;
+  font-family: var(--Abel);
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 0.8rem;
+  margin: 0.6rem;
+  border-radius: 0.8rem;
+}
+
+/* * end of Record List Elements Styling */
+
+/* * Loan List Records Buttons Styling  */
+
+.actions .btn {
+  background: #388697;
+  border-radius: 1.6rem;
+  font-family: var(--Anton);
+  font-weight: 400;
+  font-size: 2rem;
+  transform: scale(1.05);
+  transition: 0.2s ease-in;
+  padding: 1.4rem;
+  margin: 0.8rem;
+}
+
+.actions .btn:hover {
+  transform: scale(1);
+  background: #2b6370;
+  color: #f3f9d2;
+}
+
+/* * end of Loan List Records Buttons Styling  */
+
+/* * end of Loan Records Styling */
+
+/* * Loan Details Styling  */
+
+/* * Loan Details Elements Styling */
+
+.loan-details {
+  display: flex;
+  flex-flow: wrap column;
+  justify-content: center;
+  align-content: center;
+  width: 70vw;
+  padding: 1.2rem;
+  margin: auto;
+  border-left: 0.2rem solid #9349bb;
+}
+
+.loan-details p {
+  line-height: 3.6rem;
+}
+
+.loan-details p strong {
+  text-transform: uppercase;
+  font-family: var(--Poppins_ExtraBold);
+  font-size: 1.6rem;
+  text-align: center;
+  color: #212922;
+}
+
+.loan-details :nth-child(n) {
+  padding: 1.2rem;
+}
+
+.loan-details :nth-child(2n) {
+  background: #c2d3f3;
+  border-top-right-radius: 1.2rem;
+}
+
+/* * end of Loan Details Elements Styling */
+
+/* * Loan Details Buttons Styling */
+
+.btn--primary {
+  color: #4cfd55;
+  transition: 0.8s ease-in;
+}
+
+.actions .btn--primary:hover {
+  border: 0.4rem solid #4cfd55;
+}
+
+.btn--secondary {
+  color: #e45536;
+  transition: 0.8s ease-in;
+}
+
+.actions .btn--secondary:hover {
+  border: 0.4rem solid #e45536;
+}
+
+/* *end of Loan Details Buttons Styling */
+
+/* * end of Loan Details Styling  */
+
+/* * Messages Styling  */
+
+.message {
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--Anton);
+  font-size: 3.6rem;
+  border-left: 4px solid;
+  width: 60vw;
+  padding: 1.2rem;
+  margin: 1.2rem auto;
+}
+
+.message-loading {
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.message-loading::before {
+  content: "⏳";
+  font-size: 2.4rem;
+}
+
+.message-notice {
+  background-color: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.message-notice::before {
+  content: "ℹ️";
+  font-size: 2.4rem;
+}
+
+.message-error {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.message-error::before {
+  content: "⚠️";
+  font-size: 2.4rem;
+}
+
+.message-success {
+  background-color: #d1fae5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.message-success::before {
+  content: "✓";
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+/* * end of Messages Styling  */

@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import type { Device } from '@/app/devices/device';
 import { useDevices } from '@/composables/use-devices';
+import { user, isAuthenticated } from '@/composables/use-auth';
 
 const route = useRoute();
 const { devices, isLoading } = useDevices();
@@ -54,14 +55,14 @@ const response = await fetch(
 }
 
 async function subscribeToNotifications() {
-  if (!device.value || !device.value.id /*|| !user.value?.id*/) {
+  if (!device.value || !device.value.id || !user.value?.id) {
     alert("Device or user info is missing.");
     return;
   }
 
   const payload = {
     deviceId: device.value.id,
-    /*userId: user.value.id,*/
+    userId: user.value.id,
   };
 
   try {

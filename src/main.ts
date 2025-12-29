@@ -8,17 +8,26 @@ import {
   LOAN_RECORD_KEY,
 } from './config/appServices';
 import { initAuth0 } from './composables/use-auth';
-import './styles/global.css';
 
-const app = createApp(App);
+import './styles/main.css';
+import './styles/font-face.css';
 
-app.use(router);
+async function bootstrap() {
+  // 1. Initialise Auth0 FIRST
+  await initAuth0();
 
-// Provide bound review use cases to the app's DI container
-app.provide(DEVICE_KEY, buildDeviceUses());
-app.provide(LOAN_RECORD_KEY, buildLoanRecordUses());
+  // 2. Create ONE app
+  const app = createApp(App);
 
-initAuth0().then(() => {
-  createApp(App).use(router).mount('#app');
-});
+  // 3. Register plugins
+  app.use(router);
 
+  // 4. Register DI providers
+  app.provide(DEVICE_KEY, buildDeviceUses());
+  app.provide(LOAN_RECORD_KEY, buildLoanRecordUses());
+
+  // 5. Mount
+  app.mount('#app');
+}
+
+bootstrap();

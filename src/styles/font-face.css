@@ -1,0 +1,57 @@
+/* Lexened Deca Font Family  */
+
+@font-face {
+  font-family: Lexened;
+  src: url("./fonts/Lexened_Deca/LexendDeca-VariableFont_wght.ttf");
+}
+
+/* end of Lexened Deca Font Family  */
+
+/* Abel Font Family */
+
+@font-face {
+  font-family: Abel;
+  src: url("./fonts/Abel/Abel-Regular.ttf");
+}
+
+/* end of Abel Font Family */
+
+/* Josefin Sans Font Family */
+
+@font-face {
+  font-family: Josefin;
+  src: url("./fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf");
+}
+
+/* end of Josefin Sans Font Family */
+
+/* Livvic Font Family */
+
+@font-face {
+  font-family: Livvic;
+  src: url("./fonts/Livvic/Livvic-Regular.ttf");
+}
+@font-face {
+  font-family: Livvic_Bold;
+  src: url("./fonts/Livvic/Livvic-Bold.ttf");
+}
+
+/* end of Livvic Font Family */
+
+/* Anton Font Family */
+
+@font-face {
+  font-family: Anton;
+  src: url("./fonts/Anton/Anton-Regular.ttf");
+}
+
+/* end of Anton Font Family */
+
+/* Poppins Font Family */
+
+@font-face {
+  font-family: Poppins_ExtraBold;
+  src: url("./fonts/Poppins/Poppins-ExtraBold.ttf");
+}
+
+/* end of Poppins Font Family */

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { isAuthenticated, user, login, logout } from '@/composables/use-auth';
 
 const router = useRouter();
 
@@ -19,5 +20,6 @@ function goTo(path: string) {
     </div>
   </section>
 </template>
+
 
 
