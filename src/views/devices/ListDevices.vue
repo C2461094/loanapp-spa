@@ -3,6 +3,20 @@ import { useDevices } from '@/composables/use-devices';
 import DeviceCard from '@/components/devices/DeviceCard.vue';
 
 const { devices, isLoading, error, reload } = useDevices();
+import { isAuthenticated, login } from '@/composables/use-auth';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function goToDevice(deviceId: string) {
+  if (!isAuthenticated.value) {
+    // Redirect to Auth0 login and return to the device detail
+    login(); // will redirect to Auth0 login with current window.location
+  } else {
+    router.push({ name: 'DeviceDetail', params: { id: deviceId } });
+  }
+}
+
 </script>
 
 <template>

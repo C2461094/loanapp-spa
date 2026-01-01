@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Device } from '@/app/devices/device';
+import { isAuthenticated } from '@/composables/use-auth';
 
 defineProps<{
   device: Device;
@@ -13,7 +14,7 @@ defineProps<{
     <p v-if="device.description">
       <strong>Description:</strong> {{ device.description }}
     </p>
-    <p><strong>Stock:</strong> {{ device.stock }}</p>
+   <p v-if="isAuthenticated">Stock: {{ device.stock }}</p>
     <p><strong>Created:</strong> {{ new Date(device.createdAt) }}</p>
   </div>
 </template>
