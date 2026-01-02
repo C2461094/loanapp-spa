@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import type { Device } from '@/app/devices/device';
 import { useDevices } from '@/composables/use-devices';
-import { user, isAuthenticated } from '@/composables/use-auth';
+import { getAccessToken, user } from '@/composables/use-auth';
 
 const route = useRoute();
 const { devices, isLoading } = useDevices();
@@ -23,15 +23,23 @@ async function reserveDevice() {
   error.value = null;
 
   try {
-const response = await fetch(
-  `${import.meta.env.VITE_API_BASE_URL}records`,
-  {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ deviceId: device.value.id }),
-  }
-);
+    const token = await getAccessToken();
 
+    if (!token) {
+      throw new Error('Not authenticated');
+    }
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/records`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ deviceId: device.value.id }),
+      },
+    );
 
     if (!response.ok) {
       const message = await response.text();
@@ -39,9 +47,10 @@ const response = await fetch(
     }
 
     const record = await response.json();
-    alert(`Success! Reserved ${device.value.brand} ${device.value.modelName} until ${record.dueDate}`);
+    alert(
+      `Success! Reserved ${device.value.brand} ${device.value.modelName} until ${record.dueDate}`,
+    );
 
-    // Optional: update device stock in local state (optimistic)
     device.value = {
       ...device.value,
       stock: device.value.stock - 1,
@@ -55,24 +64,34 @@ const response = await fetch(
 }
 
 async function subscribeToNotifications() {
-  if (!device.value || !device.value.id || !user.value?.id) {
-    alert("Device or user info is missing.");
+  if (!device.value || !device.value.id || !user.value?.email) {
+    alert('Device or user info is missing.');
     return;
   }
 
-  const payload = {
-    deviceId: device.value.id,
-    userId: user.value.id,
-  };
-
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/subscriptions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const token = await getAccessToken();
+
+    if (!token) {
+      throw new Error('Not authenticated');
+    }
+
+    const payload = {
+      deviceId: device.value.id,
+      userId: user.value.email,
+    };
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/subscriptions`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
       },
-      body: JSON.stringify(payload),
-    });
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -87,22 +106,22 @@ async function subscribeToNotifications() {
     alert('Failed to subscribe to notifications. Try again later.');
   }
 }
-
 </script>
-
 
 <template>
   <div class="page">
     <h1>Device Details</h1>
-    <div v-if="isLoading">Loading...</div>
-    <div v-else-if="device">
-      <h2>{{ device.brand }} {{ device.modelName }}</h2>
-      <p>Category: {{ device.category }}</p>
-      <p>Description: {{ device.description }}</p>
-      <p>Stock: {{ device.stock }}</p>
-      <p>Created At: {{ device.createdAt }}</p>
+    <div v-if="isLoading" class="message message-loading">Loading...</div>
+
+    <div v-else-if="device" class="device-card device-details">
+      <h2 class="card-title">{{ device.brand }} {{ device.modelName }}</h2>
+      <p><span>Category</span>: {{ device.category }}</p>
+      <p><span>Description</span>: {{ device.description }}</p>
+      <p><span>Stock</span>: {{ device.stock }}</p>
+      <p><span>Created At</span>: {{ device.createdAt }}</p>
     </div>
-    <div v-else>
+
+    <div v-else class="message message-notice">
       <p>Device not found.</p>
     </div>
 
@@ -119,13 +138,20 @@ async function subscribeToNotifications() {
         Reserve Device
       </button>
 
-      <button @click="subscribeToNotifications" class="btn btn--secondary"
-      :disabled="!device ||device.stock > 0"
-      :title="!device || device.stock > 0 ? 'You can only subscribe when the device is out of stock' : 'Get email notification when device becomes available'">
+      <button
+        @click="subscribeToNotifications"
+        class="btn btn--secondary"
+        :disabled="!device || device.stock > 0"
+        :title="
+          !device || device.stock > 0
+            ? 'You can only subscribe when the device is out of stock'
+            : 'Get email notification when device becomes available'
+        "
+      >
         Subscribe for Notifications
       </button>
     </div>
 
-    <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="error" class="message message-error">{{ error }}</p>
   </div>
 </template>

@@ -247,7 +247,7 @@ aside {
 .grid-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.6rem;
+  gap: 3.6rem;
   border-left: 0.2rem solid #9349bb;
   grid-area: list_cards;
 }
@@ -360,6 +360,40 @@ aside {
 }
 /* * end of Button Flex */
 
+/* * Landing Page Buttons Styling */
+
+.buttons-landingPage {
+  display: flex;
+  flex-flow: nowrap row;
+  justify-content: center;
+  align-items: center;
+  margin: 4.6rem;
+}
+
+.buttons-landingPage .btn {
+  font-family: var(--Anton);
+  font-weight: 900;
+  font-size: 2.8rem;
+  border: 0.6rem solid #99c1b9;
+  border-radius: 1.6rem;
+  color: #242423;
+  transition: ease-in 0.2s;
+  transform: scale(1.05);
+}
+
+.buttons-landingPage .btn:hover {
+  background: #34afec;
+  font-family: var(--Anton);
+  font-weight: 900;
+  font-size: 2.4rem;
+  border: 0.8rem solid #3fc4a9;
+  border-radius: 1.6rem;
+  color: #eaf0ed;
+  transform: scale(1.02);
+}
+
+/* * end of Landing Page Buttons Styling */
+
 /* * end of Buttons Styling  */
 
 /* * Page Styling  */
@@ -403,6 +437,22 @@ aside {
 
 /* * Loan List Records Styling */
 
+/* * Loan List Records Grid Module Styling */
+
+.listLoan-records {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "header header "
+    "actions record-list";
+}
+
+.listLoan-records header {
+  grid-area: header;
+}
+/* * Loan List Records Grid Module Styling */
+
 /* * Record List Elements Styling */
 
 .record-list {
@@ -411,6 +461,8 @@ aside {
   justify-content: center;
   align-items: center;
   padding: 0.8rem;
+  grid-area: record-list;
+  border-left: 0.2rem solid #9349bb;
 }
 
 .record-list li {
@@ -471,6 +523,17 @@ aside {
 
 /* * Loan List Records Buttons Styling  */
 
+.listLoan-records .actions {
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 12.2rem;
+  grid-area: actions;
+  height: fit-content;
+}
+
 .actions .btn {
   background: #388697;
   border-radius: 1.6rem;
@@ -481,6 +544,8 @@ aside {
   transition: 0.2s ease-in;
   padding: 1.4rem;
   margin: 0.8rem;
+  width: fit-content;
+  height: fit-content;
 }
 
 .actions .btn:hover {
@@ -554,6 +619,14 @@ aside {
 /* *end of Loan Details Buttons Styling */
 
 /* * end of Loan Details Styling  */
+
+/* * Landing Page Styling  */
+
+.landing h1 {
+  margin: 8.2rem auto;
+}
+
+/* * end of Landing Page Styling  */
 
 /* * Messages Styling  */
 

@@ -5,7 +5,7 @@ import type { Auth0Client, User } from '@auth0/auth0-spa-js';
 
 let auth0Client: Auth0Client;
 
-// Reactive state (this is what you were missing earlier)
+//Reactive state (this is what you were missing earlier)
 export const isAuthenticated = ref(false);
 export const user = ref<User | null>(null);
 
@@ -19,7 +19,7 @@ export async function initAuth0(): Promise<void> {
     },
   });
 
-  // Handle Auth0 redirect after login
+  //Handle Auth0 redirect after login
   if (
     window.location.search.includes('code=') &&
     window.location.search.includes('state=')

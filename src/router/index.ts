@@ -21,7 +21,8 @@ const routes = [
     path: '/devices/:id',
     name: 'DeviceDetail',
     component: DeviceDetail,
-    meta: { requiresAuth: true }, // Require login to view details
+    // Require login to view details
+    meta: { requiresAuth: true }, 
   },
   {
     path: '/loan-records',
@@ -68,9 +69,9 @@ router.beforeEach(async (to, from, next) => {
 
   if (requiredRole && isAuthenticated.value) {
     const roles = user.value?.['https://loanapp-api-dev-iv3/roles'] || [];
-
+ // Redirect to home if missing role
     if (!roles.includes(requiredRole)) {
-      return next('/'); // Redirect to home if missing role
+      return next('/');
     }
   }
 

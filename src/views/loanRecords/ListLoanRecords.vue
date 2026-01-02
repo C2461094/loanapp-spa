@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useLoanRecords } from '@/composables/use-loan-records';
-import { useRouter } from 'vue-router';
+import { onMounted } from "vue";
+import { useLoanRecords } from "@/composables/use-loan-records";
+import { useRouter } from "vue-router";
 
 const { records, isLoading, reload } = useLoanRecords();
 const router = useRouter();
@@ -16,32 +16,44 @@ function goToDetail(id: string) {
 </script>
 
 <template>
-  <div class="page">
-    <h1>Loan Records</h1>
+  <div class="page listLoan-records">
+  
+    <header>
+      <h1>Loan Records</h1>
+    </header>
 
-    <div v-if="isLoading">Loading...</div>
+  
+    
+     
+    <div class="actions">
+        <button @click="$router.push('/')" class="btn btn--back">
+          Back to Home
+        </button>
+        <button @click="reload" class="btn btn--reload" :disabled="isLoading">
+          Reload
+        </button>
+    </div>
 
-    <ul v-else class="record-list">
-      <li
-        v-for="record in records"
-        :key="record.id"
-        class="record-item"
-        @click="goToDetail(record.id)"
-      >
-        <p>
-          <strong>{{ record.deviceModelName ?? record.deviceId }}</strong>
-          →
-          {{ record.status }}
-        </p>
-        <small>User: {{ record.userId }} | Due: {{ record.dueDate }}</small>
-      </li>
+      <div v-if="isLoading" class="message message-loading">Loading...</div>
+
+    <ul v-else="" class="record-list">
+        <li
+          v-for="record in records"
+          :key="record.id"
+          class="record-item"
+          @click="goToDetail(record.id)"
+        >
+          <p>
+            <strong>{{ record.deviceModelName ?? record.deviceId }}</strong>
+            {{ record.status }}
+          </p>
+          <small>User: {{ record.userId }} | Due: {{ record.dueDate }}</small>
+        </li>
     </ul>
 
-    <div class="actions">
-      <button @click="$router.push('/')" class="btn btn--back">⬅ Back to Home</button>
-      <button @click="reload" class="btn btn--reload" :disabled="isLoading">
-        Reload
-      </button>
+
+
     </div>
-  </div>
+ 
 </template>
+

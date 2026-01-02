@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { useLoanRecords } from '@/composables/use-loan-records';
-import type { LoanRecord } from '@/app/loanRecords/loan-record';
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useLoanRecords } from "@/composables/use-loan-records";
+import type { LoanRecord } from "@/app/loanRecords/loan-record";
 
 const route = useRoute();
 const router = useRouter();
@@ -26,7 +26,7 @@ async function markAsCollected() {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_BASE_URL}/records/${record.value.id}/collect`,
-      { method: 'POST' },
+      { method: "POST" }
     );
 
     if (!response.ok) {
@@ -35,7 +35,7 @@ async function markAsCollected() {
 
     record.value = await response.json();
   } catch (err: any) {
-    error.value = err.message ?? 'Failed to mark as collected';
+    error.value = err.message ?? "Failed to mark as collected";
   } finally {
     isSubmitting.value = false;
   }
@@ -50,7 +50,7 @@ async function markAsReturned() {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_API_BASE_URL}/records/${record.value.id}/return`,
-      { method: 'POST' },
+      { method: "POST" }
     );
 
     if (!response.ok) {
@@ -59,7 +59,7 @@ async function markAsReturned() {
 
     record.value = await response.json();
   } catch (err: any) {
-    error.value = err.message ?? 'Failed to mark as returned';
+    error.value = err.message ?? "Failed to mark as returned";
   } finally {
     isSubmitting.value = false;
   }
@@ -67,12 +67,12 @@ async function markAsReturned() {
 </script>
 
 <template>
-  <div class="page">
+    <div class="page">
     <h1>Loan Record Details</h1>
 
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading" class="message message-loading">Loading...</div>
 
-    <div v-else-if="record">
+    <div v-else-if="record" class="loan-details">
       <p><strong>User ID:</strong> {{ record.userId }}</p>
 
       <p>
@@ -81,9 +81,7 @@ async function markAsReturned() {
           {{ record.deviceModelName }}
           <span class="muted">({{ record.deviceId }})</span>
         </span>
-        <span v-else>
-          {{ record.deviceId }}
-        </span>
+        <span v-else> {{ record.deviceId }} </span>
       </p>
 
       <p><strong>Status:</strong> {{ record.status }}</p>
@@ -100,11 +98,11 @@ async function markAsReturned() {
       <p><strong>Due Date:</strong> {{ record.dueDate }}</p>
     </div>
 
-    <div v-else>
+    <div v-else class="message message-notice">
       <p>Loan record not found.</p>
     </div>
 
-    <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="error" class="message message-error">{{ error }}</p>
 
     <div class="actions">
       <button @click="router.back()" class="btn btn--back">Back</button>
