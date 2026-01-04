@@ -13,7 +13,8 @@ const { devices, isLoading, error, reload } = useDevices();
 
     <aside class="btn-container btn-flex">
       <RouterLink to="/" class="btn btn--reload">Back to Home</RouterLink>
-      <button class="btn btn--reload">Reload</button>
+     <button class="btn btn--reload" @click="reload">Reload</button>
+
     </aside>
 
     <div v-if="isLoading" class="page__meta" aria-live="polite">

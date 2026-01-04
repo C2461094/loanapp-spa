@@ -78,7 +78,7 @@ async function subscribeToNotifications() {
 
     const payload = {
       deviceId: device.value.id,
-      userId: user.value.email,
+      userId: user.value.id, //the issue is here, the user has no value email, just id which is the email
     };
 
     const response = await fetch(

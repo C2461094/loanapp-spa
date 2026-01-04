@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useLoanRecords } from "@/composables/use-loan-records";
 import type { LoanRecord } from "@/app/loanRecords/loan-record";
+import { getAccessToken } from "@/composables/use-auth";
 
 const route = useRoute();
 const router = useRouter();
@@ -18,6 +19,74 @@ onMounted(() => {
 });
 
 async function markAsCollected() {
+  if (!record.value) return;
+
+  isSubmitting.value = true;
+  error.value = null;
+
+  try {
+    const token = await getAccessToken(); // ✅ Get access token
+    if (!token) {
+      throw new Error("Not authenticated");
+    }
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/records/${record.value.id}/collect`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ Add token to request
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    record.value = await response.json();
+  } catch (err: any) {
+    error.value = err.message ?? "Failed to mark as collected";
+  } finally {
+    isSubmitting.value = false;
+  }
+}
+
+async function markAsReturned() {
+  if (!record.value) return;
+
+  isSubmitting.value = true;
+  error.value = null;
+
+  try {
+    const token = await getAccessToken(); // ✅ Get access token
+    if (!token) {
+      throw new Error("Not authenticated");
+    }
+
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/records/${record.value.id}/return`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ Add token to request
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    record.value = await response.json();
+  } catch (err: any) {
+    error.value = err.message ?? "Failed to mark as returned";
+  } finally {
+    isSubmitting.value = false;
+  }
+}
+
+/* async function markAsCollected() {
   if (!record.value) return;
 
   isSubmitting.value = true;
@@ -63,7 +132,7 @@ async function markAsReturned() {
   } finally {
     isSubmitting.value = false;
   }
-}
+} */
 </script>
 
 <template>
