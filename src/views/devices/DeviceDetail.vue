@@ -37,7 +37,9 @@ async function reserveDevice() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ deviceId: device.value.id }),
+        body: JSON.stringify({ deviceId: device.value.id,
+          userId: user.value?.email,
+         }), // this one here is missing the email
       },
     );
 
@@ -78,7 +80,7 @@ async function subscribeToNotifications() {
 
     const payload = {
       deviceId: device.value.id,
-      userId: user.value.id, //the issue is here, the user has no value email, just id which is the email
+      userId: user.value.email,
     };
 
     const response = await fetch(
