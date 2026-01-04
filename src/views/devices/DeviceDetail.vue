@@ -38,7 +38,7 @@ async function reserveDevice() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ deviceId: device.value.id,
-          userId: user.value?.email,
+          userId: user.value?.email || user.value?.id,
          }), // this one here is missing the email
       },
     );
