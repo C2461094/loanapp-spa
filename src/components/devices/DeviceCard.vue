@@ -2,6 +2,7 @@
 import type { Device } from '@/app/devices/device';
 import { isAuthenticated } from '@/composables/use-auth';
 
+// Define the props for the DeviceCard component
 defineProps<{
   device: Device;
 }>();
