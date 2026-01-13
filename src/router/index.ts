@@ -6,6 +6,9 @@ import LandingPage from '@/views/LandingPage.vue';
 import Login from '@/views/Login.vue';
 import Callback from '@/views/Callback.vue';
 
+/**
+ * Application route definitions.
+ */
 const routes = [
   {
     path: '/',
@@ -21,20 +24,19 @@ const routes = [
     path: '/devices/:id',
     name: 'DeviceDetail',
     component: DeviceDetail,
-    // Require login to view details
-    meta: { requiresAuth: true }, 
+    meta: { requiresAuth: true }, // Requires user authentication
   },
   {
     path: '/loan-records',
     name: 'LoanRecords',
     component: () => import('@/views/loanRecords/ListLoanRecords.vue'),
-    meta: { requiresAuth: true, requiredRole: 'staff' }, // Staff only
+    meta: { requiresAuth: true, requiredRole: 'staff' }, // Staff-only access
   },
   {
     path: '/loan-records/:id',
     name: 'LoanRecordDetail',
     component: () => import('@/views/loanRecords/LoanRecordDetail.vue'),
-    meta: { requiresAuth: true, requiredRole: 'staff' }, // Staff only
+    meta: { requiresAuth: true, requiredRole: 'staff' }, // Staff-only access
   },
   {
     path: '/login',
@@ -48,34 +50,38 @@ const routes = [
   },
 ];
 
+/**
+ * Creates a Vue Router instance with route guards.
+ */
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 });
 
+/**
+ * Global navigation guard for authentication and role-based access control.
+ */
 router.beforeEach(async (to, from, next) => {
-  // 1. Wait a moment if auth hasn't fully loaded yet
+  // Wait briefly if authentication state isn't initialized
   if (typeof isAuthenticated.value === 'undefined') {
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
 
-  // 2. If route requires login and user is not authenticated
+  // Redirect to login if route requires authentication and user is not authenticated
   if (to.meta.requiresAuth && !isAuthenticated.value) {
     return login();
   }
 
-  // 3. Role-based access control
+  // If a specific role is required, verify the user has it
   const requiredRole = to.meta.requiredRole;
-
   if (requiredRole && isAuthenticated.value) {
     const roles = user.value?.['https://loanapp-api-dev-iv3/roles'] || [];
- // Redirect to home if missing role
     if (!roles.includes(requiredRole)) {
-      return next('/');
+      return next('/'); // Redirect unauthorized users to home
     }
   }
 
-  // 4. Allow navigation
+  // Allow navigation to proceed
   next();
 });
 
